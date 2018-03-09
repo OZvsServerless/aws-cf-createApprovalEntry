@@ -1,21 +1,26 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Resources:
-  AddReviewDocumentToList:
-    Type: AWS::Serverless::Function
-    Properties:
-      FunctionName: 'ReviewManagerLambda'
-      Description: 'Basic Implementation to sync S3 documents with review table in DynamoDB'
-      Handler: index.handler
-      Runtime: nodejs6.10
-      CodeUri: ./src/
-      # Role: ....
-      Policies: [AWSLambdaExecute, AmazonDynamoDBFullAccess]
-      Environment:
-        Variables:
-          tableName: ReviewList
-  SourceBucket:
-    Type: S3
-    Properties:
-      Bucket: lambda-oz-bucket
-      Events: s3:ObjectCreated:*
+	AddReviewDocumentToList:
+		Type: AWS::Serverless::Function
+		Properties:
+			FunctionName: 'ReviewManagerLambda'
+			Description: 'Basic Implementation to sync S3 documents with review table in DynamoDB'
+			Handler: index.handler
+			Runtime: nodejs6.10
+			CodeUri: ./src/
+			# Role: ....
+			Policies: [AWSLambdaExecute, AmazonDynamoDBFullAccess]
+			Events:
+				BucketEvent1:
+					Type: S3
+					Properties:
+						Bucket:
+							Ref: SourceBucket
+						Events:
+							- 's3:ObjectCreated:*'
+			Environment:
+				Variables:
+					tableName: ReviewList
+	SourceBucket:
+		Type: AWS::S3::Bucket
