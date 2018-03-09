@@ -26,4 +26,4 @@ Generate S3 event using:
 
 sam local generate-event s3 --bucket localTestBucket  --key test-key > event_file.json
 
-sam local invoke ReviewManagerLambda -e event_file.json
+sam local invoke AddReviewDocumentToList -e event_file.json
