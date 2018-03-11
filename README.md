@@ -1,4 +1,4 @@
-# cloudFunction-Round2
+# aws-cf-createApprovalEntry
 This codebase is created to experiment with AWS Lambda. The goal is to use SAM to deploy and publish the lambda function using Cloud formation.
 
 ## Setup
